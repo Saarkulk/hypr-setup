@@ -4,7 +4,7 @@ set -euo pipefail
 REPO="$HOME/github/hypr-setup"
 DEST="$REPO/config"
 LOG="$HOME/.cache/hypr-backup.log"
-KEY="$HOME/.ssh/id_github"     # fallback key for non-interactive pushes
+KEY="$HOME/.ssh/id_github"
 
 # Folders to sync
 FOLDERS=(
