@@ -147,7 +147,7 @@
     "custom/git": {
         "format": "",
         "tooltip": "Backup configs to hypr-setup and push",
-        "on-click": "bash -lc '~/.config/hypr/scripts/github_upload.sh >/dev/null 2>&1 & disown'",
+        "on-click": "bash -lc '~/github/github_upload.sh >/dev/null 2>&1 & disown'",
         "interval": 0
     },
 
