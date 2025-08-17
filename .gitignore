@@ -1,6 +1,0 @@
-
-# never commit keys
-*.pem
-*.key
-*.pub
-id_*
