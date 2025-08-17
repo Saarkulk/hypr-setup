@@ -66,7 +66,7 @@ if git diff --cached --quiet; then
   exit 0
 fi
 
-COMMIT_MSG="Latest additions ($(date -Iseconds))"
+COMMIT_MSG="Latest additions ($(date  -Iseconds))"
 git commit -m "$COMMIT_MSG" >> "$LOG" 2>&1 || {
   notify "Commit failed. See $LOG"
   exit 1
