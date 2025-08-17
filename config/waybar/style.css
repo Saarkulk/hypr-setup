@@ -119,6 +119,7 @@ window.popup tooltip {
     border-radius: 12px;
     transition: all 0.2s ease-in-out;
 }
+
 #custom-function-icon {
     background-color: rgba(0, 0, 0, 0.05);
     padding: 4px 10px;
@@ -134,7 +135,7 @@ window.popup tooltip {
     transition: all 0.2s ease-in-out;
 }
 
-#custom-notifications, #custom-power, #bluetooth, #custom-bluetooth, #custom-warp, #battery, #memory, #custom-memory, #cpu, #custom-cpu, #temperature, #custom-temp, #backlight, #network, #power-profiles-daemon, #custom-media, #custom-clock, #pulseaudio, #idle_inhibitor, #keyboard-state, #custom-current_workspace{
+#custom-git, #custom-notifications, #custom-power, #bluetooth, #custom-bluetooth, #custom-warp, #battery, #memory, #custom-memory, #cpu, #custom-cpu, #temperature, #custom-temp, #backlight, #network, #power-profiles-daemon, #custom-media, #custom-clock, #pulseaudio, #idle_inhibitor, #keyboard-state, #custom-current_workspace{
     background-color: rgba(0, 0, 0, 0.05);
     padding: 4px 10px;
     margin: 6px 4px 6px 4px;
@@ -142,7 +143,7 @@ window.popup tooltip {
     box-shadow: 0 0 2px rgba(255, 255, 255, 0.4);
     /*color: @foreground;*/
 }
-#custom-notifications:hover, #custom-power:hover, #bluetooth:hover, #custom-bluetooth:hover, #custom-warp:hover, #battery:hover, #memory:hover, #custom-memory:hover, #cpu:hover, #custom-cpu:hover, #temperature:hover, #custom-temp:hover, #backlight:hover, #network:hover, #power-profiles-daemon:hover, #custom-media:hover, #custom-clock:hover, #pulseaudio:hover, #idle_inhibitor:hover, #keyboard-state:hover,#custom-current_workspace:hover{
+#custom-git:hover, #custom-notifications:hover, #custom-power:hover, #bluetooth:hover, #custom-bluetooth:hover, #custom-warp:hover, #battery:hover, #memory:hover, #custom-memory:hover, #cpu:hover, #custom-cpu:hover, #temperature:hover, #custom-temp:hover, #backlight:hover, #network:hover, #power-profiles-daemon:hover, #custom-media:hover, #custom-clock:hover, #pulseaudio:hover, #idle_inhibitor:hover, #keyboard-state:hover,#custom-current_workspace:hover{
     background-color: rgba(0, 0, 0, 0.05);
     box-shadow: 0px 2px 2px 2px @color6;
     border-radius: 12px;

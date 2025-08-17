@@ -67,7 +67,8 @@
             "custom/bluetooth",
             "pulseaudio",
             "battery",
-            "backlight"
+            "backlight",
+            "custom/git"
         ],
         "rotate": 0,
         "drawer":{
@@ -141,6 +142,13 @@
         "format-charging": "{capacity}% ",
         "format-plugged": "{capacity}% ",
         "format-icons": [" ", " ", " ", " ", " "]
+    },
+
+    "custom/git": {
+        "format": "",
+        "tooltip": "Backup configs to hypr-setup and push",
+        "on-click": "bash -lc '~/.config/hypr/scripts/github_upload.sh >/dev/null 2>&1 & disown'",
+        "interval": 0
     },
 
     "power-profiles-daemon": {
