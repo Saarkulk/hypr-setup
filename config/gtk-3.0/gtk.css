@@ -1,0 +1,27 @@
+@import 'colors.css';
+
+/* >>> BEGIN: pywal tray/tooltip override >>> */
+tooltip {
+  background-color: rgba(15, 0, 16, 0.8);
+  color: #e3b1b8;
+/*  backdrop-filter: blur(5px);*/
+  border-radius: 6px;
+  padding: 6px;
+}
+menu,
+.context-menu {
+  background-color: rgba(15, 0, 16, 0.8); /* Replace with a Pywal dark color */
+  color: @theme_fg_color;    /* or a specific hex from Pywal */
+}
+
+menu menuitem,
+.context-menu menuitem {
+  background-color: transparent;
+  color: rgba(227, 177, 184, 0.8); /* Replace with Pywal foreground */
+}
+
+menu menuitem:hover,
+.context-menu menuitem:hover {
+  background-color: rgba(227, 177, 184, 0.2); /* Hover background */
+}
+/* <<< END: pywal tray/tooltip override <<< */

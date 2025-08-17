@@ -1,0 +1,34 @@
+{
+    "positionX": "right",
+    "positionY": "bottom",
+    "layer": "overlay",
+    "control-center-layer": "overlay",
+    "control-center-exclusive-zone": false,
+    "control-center-margin-top": 8,
+    "control-center-margin-right": 8,
+    "control-center-margin-bottom": 8,
+    "control-center-width": 400,
+    "notification-margin-bottom": 80,
+    "notification-window-width":400,
+    "transition-time":100,
+    "ignore-gtk-theme": true,
+    "timeout":10,
+    //"border-radius":12,
+    "widgets": ["title", "dnd", "notifications"],
+    "widget-config": {
+        "title": { "text": "Notifications" },
+        "dnd": {}
+    },
+
+    "notification-visibility": {
+        "blacklist": { "app-name": [] /*,"desktop-entry": [], "category": []*/ },
+        "whitelist": { "app-name": [] /*,"desktop-entry": [], "category": []*/ }
+    },
+
+    "ignore-timeout": {
+        "app-name": [],
+        "desktop-entry": [],
+        "category": [],
+        "urgency": ["critical"]
+    }
+}

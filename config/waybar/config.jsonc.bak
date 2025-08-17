@@ -1,0 +1,186 @@
+//~/.config/waybar/config.jsonc
+{
+    "layer": "top",
+    "position": "top",
+    "height": 40,
+    "spacing": 6,
+
+    "modules-left": ["hyprland/workspaces", "custom/media"],
+    "modules-center": [/*"custom/current_workspace",*/ "hyprland/window"],
+    "modules-right": [
+        "idle_inhibitor", "pulseaudio", "network", "power-profiles-daemon",
+        "cpu", "memory", "temperature", "backlight", //"keyboard-state",
+        "battery", "custom/clock", "tray", "custom/power"
+    ],
+
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "format": "{icon}",
+        "on-click": "activate",
+        "format-icons": {
+            "1": "", "2": " ", "3": " ", "4": "<span rise='3000' size='8pt'></span><span rise='0' size='8pt'> /</span><span rise='-3000' size='8pt'> </span>"
+            , "5": " ","6": "V", "7":"","8":"",
+            "focused": "", "urgent": "", "default": " "
+        },
+        "persistent-workspaces": {
+            "eDP-1": [1, 2, 3, 4, 5]
+        }
+    },
+
+    "hyprland/window": {
+        "format": "{}"
+    },
+
+    // "custom/clock": {
+    //     "format": "{}",
+    //     "exec": "/home/saaranshk/.config/waybar/scripts/skalendar.py",
+    //     "return-type": "json",
+    //     "interval": 60,
+    //     "tooltip": true
+    // },
+
+    "custom/clock": {
+        "format": "{}",
+        "return-type": "json",
+        "exec": "/home/saaranshk/.config/waybar/scripts/skalendar.py",
+        "interval": 60,
+        "tooltip": true,
+        "on-click": "/usr/bin/merkuro-calendar",
+        "on-click-right": "/home/saaranshk/.config/waybar/scripts/skalendar.sh"
+    },
+
+    "pulseaudio": {
+        "format": "{volume}% {icon} {format_source}",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-muted": " {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+
+    // "network": {
+    //     "format-wifi": "{essid} ({signalStrength}%) ",
+    //     "format-ethernet": "{ipaddr}/{cidr} ",
+    //     "tooltip-format": "{ifname} via {gwaddr}",
+    //     "format-disconnected": "Disconnected ⚠"
+    // },
+    "network": {
+        "tooltip": true,
+        "rotate": 0,
+        "format-ethernet": " ",
+        "tooltip-format": "Network: <big><b>{essid}</b></big>\nSignal strength: <b>{signaldBm}dBm ({signalStrength}%)</b>\nFrequency: <b>{frequency}MHz</b>\nInterface: <b>{ifname}</b>",
+        "format-linked": " {ifname} (No IP)",
+        "format-disconnected": "󰖪 ",
+        "tooltip-format-disconnected": "Disconnected",
+        "format-alt": "<span foreground='#99ffdd'> {bandwidthDownBytes}</span> <span foreground='#ffcc66'> {bandwidthUpBytes}</span>",
+        "interval": 2
+    },
+
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}% ",
+        "format-icons": [" ", " ", " ", " ", " "]
+    },
+
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+        "format-icons": {
+            "performance": "",
+            "balanced": "v",
+            "power-saver": " "
+        }
+    },
+
+    "cpu": {
+        "format": "{usage}%  "
+    },
+
+    "memory": {
+        "format": "{}% "
+    },
+
+    "temperature": {
+        "format": "{temperatureC}°C {icon}",
+        "format-icons": ["", "", ""],
+        "critical-threshold": 80
+    },
+
+    "backlight": {
+        "format": "{percent}% {icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+
+    // "custom/backlight": {
+    //     "exec": "test -f /tmp/waybar_system_expanded && echo \"$(brightnessctl | grep -Po '\\d+(?=%)')% \" || echo ''",
+    //     "interval": 5,
+    //     "return-type": "text",
+    //     "format": "{percent}% {icon}"
+    //     "format-icons": ["", "", "", "", "", "", "", "", ""]
+    // },
+
+    "keyboard-state": {
+        "numlock": true,
+        "capslock": true,
+        "format": "{name} {icon}",
+        "format-icons": {
+            "locked": "",
+            "unlocked": ""
+        }
+    },
+
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": " ",
+            "deactivated": " "
+        }
+    },
+
+    "tray": {
+        "spacing": 5
+    },
+
+    "custom/media": {
+        "format": "{icon} {text}",
+        "return-type": "json",
+        "max-length": 40,
+        "interval": 5,
+        "format-icons": {
+            "Playing": "",
+            "Paused": "",
+            "Stopped": "",
+            "default": "🎜"
+        },
+        "escape": true,
+        "exec": "~/.config/waybar/scripts/mediaplayer.py",
+        "on-click": "playerctl play-pause"
+    },
+
+    "custom/power": {
+        "format": "⏻ ",
+        "tooltip": false,
+        "menu": "on-click",
+        "menu-file": "~/.config/waybar/power_menu.xml",
+        "menu-actions": {
+            "shutdown": "shutdown",
+            "reboot": "reboot",
+            "suspend": "systemctl suspend",
+            "hibernate": "systemctl hibernate"
+        }
+    },
+
+    "custom/current_workspace": {
+        "exec": "hyprctl activeworkspace | grep 'workspace ID' | awk '{print \"Workspace: \" $3}'",
+        "interval": 1,
+        "tooltip": false
+    }
+}

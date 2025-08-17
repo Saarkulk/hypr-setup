@@ -1,0 +1,327 @@
+//~/.config/waybar/config.jsonc
+{
+    "layer": "top",
+    "position": "top",
+    "exclusive": true,
+    "height": 40,
+    "spacing": 6,
+
+    "modules-left": ["custom/current_workspace","hyprland/workspaces", "custom/media"],
+    "modules-center": [/*"custom/current_workspace",*/ "hyprland/window"],
+    "modules-right": [
+        "group/system-tools", "group/function-tools","tray", "custom/notifications","custom/clock","custom/power"
+    ],
+
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "format": "{icon}",
+        "on-click": "activate",
+        "format-icons": {
+            "1": "", "2": " ", "3": " ", "4": " "
+            , "5": " ","6": "V", "7":"","8":"",
+            "focused": "", "urgent": "", "default": " "
+        },
+        "persistent-workspaces": {
+            "eDP-1": [1, 2, 3, 4, 5]
+        }
+    },
+
+    "hyprland/window": {
+        "format": "{}"
+    },
+
+    // "custom/clock": {
+    //     "format": "{}",
+    //     "exec": "/home/saaranshk/.config/waybar/scripts/skalendar.py",
+    //     "return-type": "json",
+    //     "interval": 60,
+    //     "tooltip": true
+    // },
+
+    "group/system-tools": {
+        "orientation": "horizontal",
+        "modules": [
+            "custom/system-icon",
+            "network",
+            "power-profiles-daemon",
+            "custom/cpu",
+            "custom/memory",
+            "custom/temp",
+            "idle_inhibitor"
+            //"keyboard-state"
+        ],
+        "rotate": 0,
+        "drawer": {
+            "transition-duration": 100,      // ms
+            "children-class": "syschild",    // optional CSS hook
+            "click-to-reveal": false,        // false = reveal on hover; true = click
+            "transition-left-to-right": false // slide direction
+        }
+    },
+
+    "group/function-tools":{
+        "orientation":"horizontal",
+        "modules":[
+            "custom/function-icon",
+            "custom/warp",
+            "custom/bluetooth",
+            "pulseaudio",
+            "battery",
+            "backlight"
+        ],
+        "rotate": 0,
+        "drawer":{
+            "transition-duration": 100,
+            "children-class":"syschild",
+            "click-to-reveal": false,
+            "transition-left-to-right": false
+        }
+    },
+
+    "custom/function-icon": {
+        "format": "  ",
+        "on-click": "waybar-msg module group/function-tools toggle",
+        "tooltip": true,
+        "tooltip-format": "Function Tools"
+    },
+
+    "custom/system-icon": {
+        "format": "  ",
+        "on-click": "waybar-msg module group/system-tools toggle",
+        "tooltip": true,
+        "tooltip-format": "System Monitor"
+    },
+
+    "custom/clock": {
+        "format": "{}",
+        "return-type": "json",
+        "exec": "/home/saaranshk/.config/waybar/scripts/skalendar.py",
+        "interval": 60,
+        "tooltip": true,
+        "on-click": "/usr/bin/merkuro-calendar",
+        "on-click-right": "/home/saaranshk/.config/waybar/scripts/skalendar.sh"
+    },
+
+    "pulseaudio": {
+        "format": "{volume}% {icon}",//{format_source}",
+        "format-bluetooth": "{volume}% {icon}",//{format_source}",
+        "format-muted": " {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {
+            "default": ["", "", " "]
+        },
+        "on-click": "pavucontrol"
+    },
+
+    // "network": {
+    //     "format-wifi": "{essid} ({signalStrength}%) ",
+    //     "format-ethernet": "{ipaddr}/{cidr} ",
+    //     "tooltip-format": "{ifname} via {gwaddr}",
+    //     "format-disconnected": "Disconnected ⚠"
+    // },
+    "network": {
+        "tooltip": true,
+        "rotate": 0,
+        "format-ethernet": " ",
+        "tooltip-format": "Network: <big><b>{essid}</b></big>\nSignal strength: <b>{signaldBm}dBm ({signalStrength}%)</b>\nFrequency: <b>{frequency}MHz</b>\nInterface: <b>{ifname}</b>",
+        "format-linked": " {ifname} (No IP)",
+        "format-disconnected": "󰖪 ",
+        "tooltip-format-disconnected": "Disconnected",
+        "format-alt": "<span foreground='#99ffdd'> {bandwidthDownBytes}</span> <span foreground='#ffcc66'> {bandwidthUpBytes}</span>",
+        "interval": 2
+    },
+
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}% ",
+        "format-icons": [" ", " ", " ", " ", " "]
+    },
+
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+        "format-icons": {
+            "performance": "",
+            "balanced": "",
+            "power-saver": " "
+        }
+    },
+
+//    "cpu": {
+//        "format": "{usage}%  "
+//    },
+//    "memory": {
+//       "format": "{}% "
+//    },
+
+//    "temperature": {
+//        "format": "{temperatureC}°C {icon}",
+//        "format-icons": ["", "", ""],
+//       "critical-threshold": 80,
+//        "input-filename": "/sys/class/hwmon/hwmon5/temp1_input"
+//    },
+
+    "custom/cpu": {
+        "exec": "~/.config/waybar/scripts/cpu_btop_json.sh cpu",
+        "interval": 2,
+        "return-type": "json",
+        "tooltip": true,
+        // Optional: override thresholds/icons without editing the script
+        "exec-if": "true",
+        "env": {
+        "WB_CPU_THRESH": "35,70",
+        "WB_CPU_ICONS": ",,",      // change if you prefer other glyphs
+        "WB_CPU_TOP_N": "5"
+        }
+    },
+
+    "custom/memory": {
+        "exec": "~/.config/waybar/scripts/cpu_btop_json.sh mem",
+        "interval":2,
+        "return-type": "json",
+        "tooltip": true,
+        "env": {
+        "WB_MEM_THRESH": "50,80",
+        "WB_MEM_ICONS": ",,",
+        "WB_MEM_TOP_N": "5"
+        }
+    },
+
+    "custom/temp": {
+        "exec": "~/.config/waybar/scripts/cpu_btop_json.sh temp",
+        "interval": 2,
+        "return-type": "json",
+        "tooltip": true,
+        "env": {
+        "WB_TEMP_PATH": "/sys/class/hwmon/hwmon5/temp1_input",
+        "WB_TEMP_THRESH": "45,70",
+        "WB_TEMP_CRIT": "80",
+        "WB_TEMP_ICONS": ",,"
+        }
+    },
+
+    "backlight": {
+        "format": "{percent}% {icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+
+    // "custom/backlight": {
+    //     "exec": "test -f /tmp/waybar_system_expanded && echo \"$(brightnessctl | grep -Po '\\d+(?=%)')% \" || echo ''",
+    //     "interval": 5,
+    //     "return-type": "text",
+    //     "format": "{percent}% {icon}"
+    //     "format-icons": ["", "", "", "", "", "", "", "", ""]
+    // },
+//    "bluetooth": {
+//        "format": " {status}",
+//        "format-connected": " {device_alias}",
+//        "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+        // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
+//        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+//        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+//        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+//        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
+//    },
+
+    "custom/bluetooth": {
+        "format": "{text}",
+        "return-type": "json",
+        "exec": "/home/saaranshk/.config/waybar/scripts/waybar-bluetooth.sh",
+        "interval": 5,
+        "tooltip": true,
+        "on-click": "/home/saaranshk/.config/waybar/scripts/waybar-bluetooth.sh click left",
+        "on-click-middle": "/home/saaranshk/.config/waybar/scripts/waybar-bluetooth.sh click middle",
+        "on-click-right": "/home/saaranshk/.config/waybar/scripts/waybar-bluetooth.sh click right"
+    },
+
+    "custom/warp": {
+        "format": "{}",
+        "return-type": "json",
+        "tooltip": true,
+        "signal": 11,                                    // <— refresh on SIGRTMIN+11
+        "exec": "~/.config/waybar/scripts/waybar-warp.sh",
+        "exec-once": "~/.config/waybar/scripts/waybar-warp.sh",
+        "interval": 5,
+        "on-click": "~/.config/waybar/scripts/waybar-warp.sh click-left",
+        "on-click-right": "~/.config/waybar/scripts/waybar-warp.sh click-right"
+    },
+
+    "keyboard-state": {
+        "numlock": true,
+        "capslock": true,
+        "format": "{name} {icon}",
+        "format-icons": {
+            "locked": " ",
+            "unlocked": " "
+        }
+    },
+
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": " ",
+            "deactivated": " "
+        }
+    },
+
+    "tray": {
+        "spacing": 5
+    },
+
+    "custom/media": {
+        "format": "{icon} {text}",
+        "return-type": "json",
+        "max-length": 40,
+        "interval": 5,
+        "format-icons": {
+            "Playing": "",
+            "Paused": "",
+            "Stopped": "",
+            "default": "🎜"
+        },
+        "escape": true,
+        "exec": "~/.config/waybar/scripts/mediaplayer.py",
+        "on-click": "playerctl play-pause"
+    },
+
+//    "custom/power": {
+//        "format": " ",
+//        "tooltip": false,
+//        "menu": "on-click",
+//        "menu-file": "/home/$USER/.config/waybar/power_menu.xml", // use absolute path
+//        "menu-actions": {
+//            "lock": "hyprlock",
+//            "logout": "hyprctl dispatch exit",
+//            "reboot": "systemctl reboot",
+//            "shutdown": "systemctl poweroff"
+//        }
+//    },
+
+    "custom/power": {
+        "format": " ",
+        "tooltip": false,
+        "on-click": "wlogout -p layer-shell -b 4 -c 10 -T 300 -B 300 "
+    },
+
+    "custom/notifications": {
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -c",            // prints integer count
+        "interval": 2,
+        "format": " {}",
+        "tooltip": false,
+        "on-click": "swaync-client -t",        // toggle panel
+        "on-click-right": "swaync-client -d"   // toggle DND
+    },
+
+    "custom/current_workspace": {
+        "exec": "hyprctl activeworkspace | grep 'workspace ID' | awk '{print \" \" $3}'",
+        "interval": 1,
+        "tooltip": false
+    }
+}

@@ -1,0 +1,5 @@
+
+/* Auto-set contrast for Waybar foreground */
+* {
+  color: #e3b1b8;
+}

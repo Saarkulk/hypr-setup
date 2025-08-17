@@ -1,0 +1,28 @@
+@import 'colors.css';
+
+/* Smaller headerbar + tighter buttons */
+headerbar {
+    min-height: 32px;          /* default ~ 38–42 */
+    padding: 0 6px;
+}
+headerbar .title, headerbar .subtitle { padding: 0 4px; }
+
+/* Sidebar row density */
+.nautilus-window .sidebar row {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+/* Compact list view rows */
+.nautilus-window listview row {
+    min-height: 28px; /* default ~32–36 */
+}
+
+/* (Optional) Subtle rounding for previews/cards */
+.nautilus-window .view .icon-grid .icon-item,
+.nautilus-window .view listview row {
+    border-radius: 10px;
+}
+
+/* (Optional) hide huge breadcrumbs arrows padding a bit */
+breadcrumbbar button { padding: 0 6px; }
